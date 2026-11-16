@@ -45,7 +45,7 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(<!doctype html>
     <label for="time">Wake-up time</label>
     <input id="time" type="time" value="07:00">
     <label for="snooze">Snooze length (minutes)</label>
-    <input id="snooze" type="number" min="1" max="60" value="9">
+    <input id="snooze" type="number" min="1" max="60" value="5">
     <div class="btns">
       <button id="save">Save</button>
       <button id="test" class="ghost">Test buzzer</button>

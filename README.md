@@ -13,7 +13,6 @@ The ESP32 joins your WiFi, gets the time from NTP, and hosts a small web page. O
 | Part | Pin |
 |------|-----|
 | Active buzzer (+) | GPIO 25 (other side to GND) |
-| Snooze button | GPIO 4 to GND (short press = snooze, long press = stop) |
 | Status LED | GPIO 2 (onboard) |
 
 Change the pin constants at the top of `AlarmClock.ino` if your wiring differs. The WiFi must be 2.4 GHz (the ESP32 can't join 5 GHz).
@@ -22,4 +21,4 @@ Change the pin constants at the top of `AlarmClock.ino` if your wiring differs. 
 Set to US Eastern by default; edit `TZ_INFO` in `AlarmClock.ino` for another zone.
 
 ## API
-`GET /api/status`, `POST /api/alarm` (`time=HH:MM&enabled=1&snooze=9`), `POST /api/snooze`, `POST /api/stop`, `POST /api/test`.
+`GET /api/status`, `POST /api/alarm` (`time=HH:MM&enabled=1&snooze=5`), `POST /api/snooze`, `POST /api/stop`, `POST /api/test`.

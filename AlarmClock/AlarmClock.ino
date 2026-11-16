@@ -12,7 +12,6 @@
 // ---- Hardware (change to match your wiring) ----
 const int BUZZER_PIN = 25;   // active buzzer, + side to this pin
 const int LED_PIN    = 2;    // onboard LED
-const int BUTTON_PIN = 4;    // optional snooze button to GND (internal pull-up); short press = snooze, long press = stop
 
 // ---- Time ----
 // POSIX timezone string; this one is US Eastern (Virginia Tech). Other zones: https://github.com/nayarsystems/posix_tz_db
@@ -23,7 +22,7 @@ struct AlarmConfig {
   bool enabled   = false;
   int  hour      = 7;
   int  minute    = 0;
-  int  snoozeMin = 9;
+  int  snoozeMin = 5;
 } cfg;
 
 enum State { IDLE, RINGING, SNOOZED };
@@ -51,7 +50,7 @@ void loadConfig() {
   cfg.enabled   = prefs.getBool("on", false);
   cfg.hour      = prefs.getInt("h", 7);
   cfg.minute    = prefs.getInt("m", 0);
-  cfg.snoozeMin = prefs.getInt("snz", 9);
+  cfg.snoozeMin = prefs.getInt("snz", 5);
   prefs.end();
 }
 
@@ -131,25 +130,10 @@ void updateOutputs() {
   digitalWrite(LED_PIN, state == RINGING ? on : (state == SNOOZED));
 }
 
-void checkButton() {
-  static unsigned long pressedAt = 0;
-  bool down = digitalRead(BUTTON_PIN) == LOW;
-  if (down && !pressedAt) pressedAt = millis();
-  if (!down && pressedAt) {
-    unsigned long held = millis() - pressedAt;
-    pressedAt = 0;
-    if (held > 30) {                       // debounce
-      if (held > 1500) state = IDLE;       // long press = stop
-      else snoozeAlarm();                  // short press = snooze
-    }
-  }
-}
-
 void setup() {
   Serial.begin(115200);
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(LED_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
   loadConfig();
 
   WiFi.mode(WIFI_STA);
@@ -175,6 +159,5 @@ void setup() {
 void loop() {
   server.handleClient();
   checkAlarm();
-  checkButton();
   updateOutputs();
 }
