@@ -10,7 +10,7 @@
 #include "index_html.h"
 
 // ---- Hardware (change to match your wiring) ----
-const int BUZZER_PIN = 25;   // active buzzer, + side to this pin
+const int BUZZER_PIN = 23;   // active buzzer, + side to this pin
 const int LED_PIN    = 2;    // onboard LED
 
 // ---- Time ----

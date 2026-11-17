@@ -12,7 +12,7 @@ The ESP32 joins your WiFi, gets the time from NTP, and hosts a small web page. O
 ## Wiring
 | Part | Pin |
 |------|-----|
-| Active buzzer (+) | GPIO 25 (other side to GND) |
+| Active buzzer (+) | GPIO 23 (other side to GND) |
 | Status LED | GPIO 2 (onboard) |
 
 Change the pin constants at the top of `AlarmClock.ino` if your wiring differs. The WiFi must be 2.4 GHz (the ESP32 can't join 5 GHz).
